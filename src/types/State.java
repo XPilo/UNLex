@@ -17,7 +17,7 @@ public class State {
     public static int ACCEPT = 2;
     
     private ArrayList<Transition> transitions;
-    protected int type;
+    private int type;
     private String token;
     
     public State() {
@@ -39,6 +39,18 @@ public class State {
     
     public String getToken() {
         return this.token;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
+    public void addTransition(Transition transition) {
+        this.transitions.add(transition);
     }
     
 }

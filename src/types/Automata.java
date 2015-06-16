@@ -11,12 +11,12 @@ package types;
  */
 public class Automata {
     
-   // private State states[];
     private State initial;
     private State actual;
     
     public Automata(State initial) {
         this.initial = initial;
+        this.actual = initial;
     }
     
     public void setInitial(State initial) {
@@ -32,10 +32,19 @@ public class Automata {
     }
     
     public State processTape(String tape) {
-        actual = initial;
+        init();
         for(int i = 0;i < tape.length() && actual != null; ++i)
-            actual = actual.nextTransition(tape.charAt(i));
+            next(tape.charAt(i));
         return actual;
+    }
+    
+    public void next(char car) {
+        if(actual != null)
+            actual = actual.nextTransition(car);
+    }
+    
+    public void init() {
+        this.actual = initial;
     }
     
 }
