@@ -40,10 +40,13 @@ public class UNLex {
         
         // Automata
         Automata automata = new Automata(q0);
-        State res = automata.processTape("aaaabab");
-        String token = (res.getToken() != null)? res.getToken() : "";
+        State res = automata.processTape("aaaababaaaa");
+        String token;
+        if(res != null){
+            token = (res.getToken() != null)? res.getToken() : "";
+            System.out.println("Token: " + token);
+        }else System.out.println("Caracter no valido");
         
-        System.out.println("Token: " + token);
     }
     
 }
