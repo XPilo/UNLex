@@ -5,6 +5,8 @@
  */
 package types;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Jose
@@ -13,10 +15,16 @@ public class Automata {
     
     private State initial;
     private State actual;
+    private ArrayList<State> states;
     
     public Automata(State initial) {
         this.initial = initial;
         this.actual = initial;
+    }
+
+    public Automata(State initial, ArrayList<State> states) {
+        this.initial = initial;
+        this.states = states;
     }
     
     public void setInitial(State initial) {
@@ -45,6 +53,14 @@ public class Automata {
     
     public void init() {
         this.actual = initial;
+    }
+
+    public ArrayList<State> getStates() {
+        return states;
+    }
+
+    public void setStates(ArrayList<State> states) {
+        this.states = states;
     }
     
 }

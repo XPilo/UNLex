@@ -24,19 +24,28 @@ public class AutomataGenerator {
         ArrayList<State> states = new ArrayList<>();
         //ArrayList<Transition> transitions = new ArrayList<>();
         if(getType(exp)==STRING){
-            for(int i=1; i < exp.length() - 1; i++){
-                states.add(new State());
-            }
-            State q = new State();
-            q.setToken(token);
-            q.setType(State.ACCEPT);
-            states.add(q);
-            for(int i=1; i < exp.length() - 1; i++){
+            states = generateNStates(exp.length() - 2);
+            states.add(generateAcceptationState(token));
+            
+            for(int i=1; i < exp.length() - 1; i++)
                 states.get(i-1).addTransition(new Transition(states.get(i), "" + exp.charAt(i)));
-            }
         }
         
-        return new Automata(states.get(0));
+        return new Automata(states.get(0),states);
+    }
+    
+    public ArrayList<State> generateNStates(int n) {
+        ArrayList<State> states = new ArrayList<>();
+        for(; n > 0; --n)
+            states.add(new State());
+        return states;
+    }
+    
+    public State generateAcceptationState(String token) {
+        State q = new State();
+        q.setToken(token);
+        q.setType(State.ACCEPT);
+        return q;
     }
     
     public int getType(String exp){
