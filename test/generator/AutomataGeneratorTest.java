@@ -56,7 +56,12 @@ public class AutomataGeneratorTest {
         State resultState;
         resultState = automata.processTape("\"otra\"");
         assertEquals(expResultState, resultState);
-        
+        exp = "[a-zA-z]*";
+        automata = instance.generate(exp, token);
+        result = automata.processTape("CarrO").getToken();
+        assertEquals(expResult, result);
+        resultState = automata.processTape("1284");
+        assertEquals(expResultState, resultState);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }

@@ -20,6 +20,7 @@ public class Automata {
     public Automata(State initial) {
         this.initial = initial;
         this.actual = initial;
+        this.states = new ArrayList<State> ();
     }
 
     public Automata(State initial, ArrayList<State> states) {
@@ -41,8 +42,11 @@ public class Automata {
     
     public State processTape(String tape) {
         init();
-        for(int i = 0;i < tape.length() && actual != null; ++i)
-            next(tape.charAt(i));
+        if(!actual.hasRegularTransition())
+            for(int i = 0;i < tape.length() && actual != null; ++i)
+                next(tape.charAt(i));
+        else
+            next(tape);
         return actual;
     }
     
@@ -61,6 +65,11 @@ public class Automata {
 
     public void setStates(ArrayList<State> states) {
         this.states = states;
+    }
+
+    private void next(String tape) {
+        if(actual != null)
+            actual = actual.nextTransition(tape);
     }
     
 }

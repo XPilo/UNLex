@@ -6,6 +6,8 @@
 package generator;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import types.Automata;
 import types.State;
 import types.Transition;
@@ -22,16 +24,22 @@ public class AutomataGenerator {
     
     public Automata generate(String exp, String token){
         ArrayList<State> states = new ArrayList<>();
-        //ArrayList<Transition> transitions = new ArrayList<>();
-        if(getType(exp)==STRING){
+        
+        if(getType(exp) == STRING) {
             states = generateNStates(exp.length() - 2);
             states.add(generateAcceptationState(token));
             
             for(int i=1; i < exp.length() - 1; i++)
                 states.get(i-1).addTransition(new Transition(states.get(i), "" + exp.charAt(i)));
+            return new Automata(states.get(0), states);
+        } else if(getType(exp) == REGULAR) {
+            states = generateNStates(1);
+            states.add(generateAcceptationState(token));
+            states.get(0).addTransition(new Transition(states.get(1), exp, Transition.REGULAR));
+            return new Automata(states.get(0), states);
         }
         
-        return new Automata(states.get(0),states);
+        return null;
     }
     
     public ArrayList<State> generateNStates(int n) {
@@ -49,11 +57,15 @@ public class AutomataGenerator {
     }
     
     public int getType(String exp){
-        if(exp.charAt(0)=='\"' && exp.charAt(exp.length()-1)=='\"')
-            return STRING;
-        if(exp.charAt(0)=='[' && exp.charAt(exp.length()-1)==']')
+        try{
+            if(exp.charAt(0)=='\"' && exp.charAt(exp.length()-1)=='\"')
+                return STRING;
+            Pattern p = Pattern.compile(exp);
             return REGULAR;
-        return ILLEGAL;
+        }catch (Exception ex){
+            System.out.println(ex.toString());
+            return ILLEGAL;
+        }
     }
     
 }

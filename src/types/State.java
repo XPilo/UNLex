@@ -6,6 +6,8 @@
 package types;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -51,6 +53,19 @@ public class State {
     
     public void addTransition(Transition transition) {
         this.transitions.add(transition);
+    }
+    
+    public boolean hasRegularTransition() {
+        return (this.transitions.size() == 1) && (this.transitions.get(0).type == Transition.REGULAR);
+    }
+
+    public State nextTransition(String tape) {
+        Transition transition = this.transitions.get(0);
+        Pattern p = Pattern.compile(transition.condition);
+        Matcher m = p.matcher(tape);
+        if(m.matches())
+            return transition.nextState;
+        return null;
     }
     
 }
