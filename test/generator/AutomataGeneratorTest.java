@@ -5,6 +5,7 @@
  */
 package generator;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import types.Automata;
 import types.State;
+import types.Grammar;
 
 /**
  *
@@ -25,6 +27,8 @@ public class AutomataGeneratorTest {
     
     @BeforeClass
     public static void setUpClass() {
+        
+        
     }
     
     @AfterClass
@@ -39,6 +43,34 @@ public class AutomataGeneratorTest {
     public void tearDown() {
     }
 
+    @Test
+    public void testGrammar() {
+        System.out.println("grammar");
+        AutomataGenerator automataGenerator = new AutomataGenerator();
+        Grammar grammarInstance = new Grammar();
+        ArrayList<Automata> grammar = new ArrayList<>();
+        grammar.add(automataGenerator.generate("\"print\"", "print"));
+        grammar.add(automataGenerator.generate("\"exit\"", "exit"));
+        grammar.add(automataGenerator.generate("[a-zA-z]*", "$"));
+        grammarInstance.setGrammar(grammar);
+        State resultState;
+        String expToken;
+        resultState = grammarInstance.validateInput("print");
+        expToken = resultState.getToken();
+        assertEquals(expToken, "print");
+        resultState = grammarInstance.validateInput("exit");
+        expToken = resultState.getToken();
+        assertEquals(expToken, "exit");
+        resultState = grammarInstance.validateInput("variAble");
+        expToken = resultState.getToken();
+        assertEquals(expToken, "$");
+        resultState = grammarInstance.validateInput("1736a");
+        assertEquals(resultState, null);
+        
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    
     /**
      * Test of generate method, of class AutomataGenerator.
      */
