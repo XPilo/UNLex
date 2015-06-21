@@ -5,13 +5,15 @@
  */
 package types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Jose
  */
-public class Grammar {
+public class Grammar implements Serializable{
+    
     private ArrayList<Automata> grammar;
 
     public Grammar() {
@@ -28,6 +30,10 @@ public class Grammar {
 
     public void setGrammar(ArrayList<Automata> grammar) {
         this.grammar = grammar;
+    }
+    
+    public void addAutomata(Automata automata){
+        grammar.add(automata);
     }
     
     public State validateInput(String input){

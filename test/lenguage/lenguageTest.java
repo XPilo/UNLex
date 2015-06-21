@@ -6,7 +6,7 @@
 package lenguage;
 
 import generator.AutomataGenerator;
-import lexGenerator.lenguageRules;
+import lexGenerator.LanguageRules;
 import org.junit.Assert;
 import org.junit.Test;
 import types.Automata;
@@ -23,7 +23,7 @@ public class lenguageTest {
         String exp="[a-z]*";
         String accept="Realizar acción";
         Automata auto = generator.generate(exp, accept);
-        lenguageRules len = new lenguageRules();
+        LanguageRules len = new LanguageRules();
         len.addToken("ID", auto);
         //---//
         exp="OTRA";

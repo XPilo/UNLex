@@ -5,11 +5,13 @@
  */
 package types;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Camilo Alaguna
  */
-public class Transition {
+public class Transition implements Serializable{
     public static int STRING = 0;
     public static int REGULAR = 1;
     

@@ -6,6 +6,11 @@
 package UI.Views;
 
 import UI.Controllers.mainFrameController;
+import java.io.File;
+import java.io.FileWriter;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import types.Grammar;
 
 /**
  *
@@ -19,7 +24,7 @@ public class mainFrame extends javax.swing.JFrame {
     public mainFrame() {
         initComponents();
     }
-
+    Grammar grammar,loadedGrammar;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,6 +39,8 @@ public class mainFrame extends javax.swing.JFrame {
         jToolBar2 = new javax.swing.JToolBar();
         Open = new javax.swing.JButton();
         RunAnalisis = new javax.swing.JButton();
+        saveGrammarButon = new javax.swing.JButton();
+        loadGrammarButton = new javax.swing.JButton();
         Results = new java.awt.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,6 +71,30 @@ public class mainFrame extends javax.swing.JFrame {
         });
         jToolBar2.add(RunAnalisis);
 
+        saveGrammarButon.setText("Guardar Analizador");
+        saveGrammarButon.setFocusable(false);
+        saveGrammarButon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        saveGrammarButon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        saveGrammarButon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveGrammarButonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(saveGrammarButon);
+
+        loadGrammarButton.setText("Cargar Analizador");
+        loadGrammarButton.setFocusable(false);
+        loadGrammarButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        loadGrammarButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        loadGrammarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadGrammarButtonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(loadGrammarButton);
+
+        Results.setEditable(false);
+        Results.setEnabled(false);
         Results.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResultsActionPerformed(evt);
@@ -115,14 +146,10 @@ public class mainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RunAnalisisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunAnalisisActionPerformed
-        String[] lines = GeneradorLex.getText().split("\n");
+        //String[] lines = GeneradorLex.getText().split("\n");
         mainFrameController controller = new mainFrameController();
-        for(int i=0; i<lines.length ; i++){
-            if(!controller.lineProcess(lines[i])) 
-                System.out.println("Linea "+(i+1)+": "+controller.getMessage());
-            else
-                System.err.println("Token agregado con éxito");
-        }
+        grammar = controller.generateGrammar(GeneradorLex.getText());
+        Results.setText(controller.getMessage());
     }//GEN-LAST:event_RunAnalisisActionPerformed
 
     private void ResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultsActionPerformed
@@ -132,6 +159,38 @@ public class mainFrame extends javax.swing.JFrame {
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_OpenActionPerformed
+
+    private void saveGrammarButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveGrammarButonActionPerformed
+        // TODO add your handling code here:
+        if(grammar!=null)
+            try{
+                JFileChooser saveWindow = new JFileChooser();
+                saveWindow.showSaveDialog(this);
+                File file =saveWindow.getSelectedFile();
+                if(file!=null)
+                    mainFrameController.saveGrammar(file,grammar);
+            }catch(Exception ex){
+                System.out.println(ex.toString());
+            }
+        else
+            JOptionPane.showMessageDialog(null,"Debe crear el analizador primero",
+           "Advertencia",JOptionPane.WARNING_MESSAGE);
+
+    }//GEN-LAST:event_saveGrammarButonActionPerformed
+
+    private void loadGrammarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadGrammarButtonActionPerformed
+        // TODO add your handling code here:
+        try{
+            JFileChooser loadWindow = new JFileChooser();
+            loadWindow.showOpenDialog(this);
+            File file = loadWindow.getSelectedFile();
+            if(file!=null)
+                loadedGrammar = mainFrameController.loadGrammar(file);
+        }catch(Exception ex){
+            System.out.println(ex.toString());
+        }
+        System.out.println("stop");
+    }//GEN-LAST:event_loadGrammarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,5 +234,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JButton RunAnalisis;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JButton loadGrammarButton;
+    private javax.swing.JButton saveGrammarButon;
     // End of variables declaration//GEN-END:variables
 }

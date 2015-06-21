@@ -22,6 +22,12 @@ public class AutomataGenerator {
     public static int STRING = 1;
     public static int ILLEGAL = 2;
     
+    public class BadSTringException extends Exception {
+        public BadSTringException(String msg) {
+            super(msg);
+        }
+    }
+    
     public Automata generate(String exp, String token){
         ArrayList<State> states = new ArrayList<>();
         
@@ -38,7 +44,6 @@ public class AutomataGenerator {
             states.get(0).addTransition(new Transition(states.get(1), exp, Transition.REGULAR));
             return new Automata(states.get(0), states);
         }
-        
         return null;
     }
     
@@ -63,7 +68,8 @@ public class AutomataGenerator {
             Pattern p = Pattern.compile(exp);
             return REGULAR;
         }catch (Exception ex){
-            System.out.println(ex.toString());
+            String message = ex.toString().replaceAll("java.util.regex.PatternSyntaxException: ", "");
+            System.out.println(message);
             return ILLEGAL;
         }
     }

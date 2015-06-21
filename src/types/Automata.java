@@ -5,13 +5,14 @@
  */
 package types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Jose
  */
-public class Automata {
+public class Automata implements Serializable{
     
     private State initial;
     private State actual;

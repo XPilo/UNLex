@@ -64,9 +64,12 @@ public class AutomataGeneratorTest {
         resultState = grammarInstance.validateInput("variAble");
         expToken = resultState.getToken();
         assertEquals(expToken, "$");
+        resultState = grammarInstance.validateInput("priNt");
+        expToken = resultState.getToken();
+        assertEquals(expToken, "$");
         resultState = grammarInstance.validateInput("1736a");
         assertEquals(resultState, null);
-        
+        grammar.add(automataGenerator.generate("\"print", "$"));
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }

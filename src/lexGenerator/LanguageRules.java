@@ -13,7 +13,7 @@ import types.State;
  *
  * @author Camilo
  */
-public class lenguageRules {
+public class LanguageRules {
      private ArrayList<Token> Tokens = new ArrayList();
      private static Token foundToken;     
      

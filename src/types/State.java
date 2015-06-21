@@ -5,6 +5,7 @@
  */
 package types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
  *
  * @author Camilo Alaguna
  */
-public class State {
+public class State implements Serializable{
     
     public static int REJECT = 1;
     public static int ACCEPT = 2;
