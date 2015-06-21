@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Views;
+package UI.Views;
+
+import UI.Controllers.mainFrameController;
 
 /**
  *
@@ -28,41 +30,68 @@ public class mainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jToolBar1 = new javax.swing.JToolBar();
-        textArea1 = new java.awt.TextArea();
-        textArea2 = new java.awt.TextArea();
+        GeneradorLex = new java.awt.TextArea();
+        jToolBar2 = new javax.swing.JToolBar();
+        Open = new javax.swing.JButton();
+        RunAnalisis = new javax.swing.JButton();
+        Results = new java.awt.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jToolBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolBar1.setRollover(true);
+        jToolBar2.setRollover(true);
+
+        Open.setText("Abrir");
+        Open.setFocusable(false);
+        Open.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Open.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Open.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(Open);
+
+        RunAnalisis.setText("Crear Analizador");
+        RunAnalisis.setFocusable(false);
+        RunAnalisis.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        RunAnalisis.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        RunAnalisis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RunAnalisisActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(RunAnalisis);
+
+        Results.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResultsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textArea2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 9, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Results, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GeneradorLex, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addComponent(GeneradorLex, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textArea2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Results, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -84,6 +113,25 @@ public class mainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RunAnalisisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RunAnalisisActionPerformed
+        String[] lines = GeneradorLex.getText().split("\n");
+        mainFrameController controller = new mainFrameController();
+        for(int i=0; i<lines.length ; i++){
+            if(!controller.lineProcess(lines[i])) 
+                System.out.println("Linea "+(i+1)+": "+controller.getMessage());
+            else
+                System.err.println("Token agregado con éxito");
+        }
+    }//GEN-LAST:event_RunAnalisisActionPerformed
+
+    private void ResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResultsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ResultsActionPerformed
+
+    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OpenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,9 +169,11 @@ public class mainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.TextArea GeneradorLex;
+    private javax.swing.JButton Open;
+    private java.awt.TextField Results;
+    private javax.swing.JButton RunAnalisis;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JToolBar jToolBar1;
-    private java.awt.TextArea textArea1;
-    private java.awt.TextArea textArea2;
+    private javax.swing.JToolBar jToolBar2;
     // End of variables declaration//GEN-END:variables
 }

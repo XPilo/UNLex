@@ -13,7 +13,7 @@ import types.Automata;
  */
 public class Token {
     private Automata automata=null; 
-    private String type;
+    private String type=null;
     
     public Token(String type, Automata Auto){
         this.type = type;

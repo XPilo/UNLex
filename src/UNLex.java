@@ -58,22 +58,7 @@ public class UNLex {
 //            System.out.println(auto.getActualState().getToken());
 //        else
 //            System.out.println("Error léxico");
-        AutomataGenerator generator = new AutomataGenerator();
-        String exp="[a-z]*";
-        String accept="Realizar acción";
-        Automata auto = generator.generate(exp, accept);
-        lenguageRules len = new lenguageRules();
-        len.addToken("ID", auto);
-        //---//
-        exp="OTRA";
-        Automata auto1 = generator.generate(exp, accept);
-        len.addToken("reserv", auto1);
-        len.addToken(exp, auto1);
         
-        if(len.isValidToken("variable"))
-            System.out.println(len.getTokenType("variable"));
-        if(len.isValidToken("OTRA"))
-            System.out.println(len.getTokenType("OTRA"));
     }
     
 }
