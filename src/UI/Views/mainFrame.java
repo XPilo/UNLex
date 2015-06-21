@@ -7,7 +7,6 @@ package UI.Views;
 
 import UI.Controllers.mainFrameController;
 import java.io.File;
-import java.io.FileWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import types.Grammar;
@@ -186,10 +185,11 @@ public class mainFrame extends javax.swing.JFrame {
             File file = loadWindow.getSelectedFile();
             if(file!=null)
                 loadedGrammar = mainFrameController.loadGrammar(file);
+            if(loadedGrammar!=null)
+                new LexAnalyzerFrame(loadedGrammar).setVisible(true);
         }catch(Exception ex){
             System.out.println(ex.toString());
         }
-        System.out.println("stop");
     }//GEN-LAST:event_loadGrammarButtonActionPerformed
 
     /**

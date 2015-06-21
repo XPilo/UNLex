@@ -29,6 +29,7 @@ public class mainFrameController {
                     new FileOutputStream(file))) {
             objectOutputStream.writeObject(grammar);
             objectOutputStream.flush();
+            objectOutputStream.close();
         }catch (IOException ex) {
             Logger.getLogger(mainFrameController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,6 +41,7 @@ public class mainFrameController {
             ObjectInputStream objectInputStream = new ObjectInputStream(
                     new FileInputStream(file));
             grammar = (Grammar)objectInputStream.readObject();
+            objectInputStream.close();
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(mainFrameController.class.getName()).log(Level.SEVERE, null, ex);
         }
