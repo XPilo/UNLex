@@ -75,7 +75,7 @@ public class mainFrameController {
         for(int i=0; i<lines.length ; i++){
             automata = lineProcess(lines[i],i + 1);
             if(automata!= null){
-                if(automata.getStates().get(0).getType()== AutomataGenerator.REGULAR)
+                if(automata.getType()== Automata.REGULAR)
                     regulars.add(automata);
                 else
                     strings.add(automata);

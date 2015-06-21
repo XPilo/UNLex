@@ -14,19 +14,26 @@ import java.util.ArrayList;
  */
 public class Automata implements Serializable{
     
+    public static int REGULAR = 0;
+    public static int STRING = 1;
+    public static int ILLEGAL = 2;
+    
     private State initial;
     private State actual;
     private ArrayList<State> states;
+    private int type;
     
     public Automata(State initial) {
         this.initial = initial;
         this.actual = initial;
         this.states = new ArrayList<State> ();
+        this.type = 2;
     }
 
-    public Automata(State initial, ArrayList<State> states) {
+    public Automata(State initial, ArrayList<State> states, int type) {
         this.initial = initial;
         this.states = states;
+        this.type = type;
     }
     
     public void setInitial(State initial) {
@@ -72,5 +79,15 @@ public class Automata implements Serializable{
         if(actual != null)
             actual = actual.nextTransition(tape);
     }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
+    
     
 }
