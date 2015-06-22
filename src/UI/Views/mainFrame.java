@@ -8,9 +8,7 @@ package UI.Views;
 import UI.Controllers.mainFrameController;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import types.Grammar;
@@ -52,6 +50,7 @@ public class mainFrame extends javax.swing.JFrame {
         Open = new javax.swing.JButton();
         SaveText = new javax.swing.JButton();
         RunAnalisis = new javax.swing.JButton();
+        AnalyzerButton = new javax.swing.JButton();
         saveGrammarButon = new javax.swing.JButton();
         loadGrammarButton = new javax.swing.JButton();
         Results = new java.awt.TextField();
@@ -94,6 +93,17 @@ public class mainFrame extends javax.swing.JFrame {
             }
         });
         jToolBar2.add(RunAnalisis);
+
+        AnalyzerButton.setText("Analizar");
+        AnalyzerButton.setFocusable(false);
+        AnalyzerButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AnalyzerButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        AnalyzerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnalyzerButtonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(AnalyzerButton);
 
         saveGrammarButon.setText("Guardar Analizador");
         saveGrammarButon.setFocusable(false);
@@ -208,7 +218,7 @@ public class mainFrame extends javax.swing.JFrame {
                 System.out.println(ex.toString());
             }
         else
-            JOptionPane.showMessageDialog(null,"Debe crear el analizador primero",
+            JOptionPane.showMessageDialog(null,"Debe crear un analizador primero",
            "Advertencia",JOptionPane.WARNING_MESSAGE);
 
     }//GEN-LAST:event_saveGrammarButonActionPerformed
@@ -240,13 +250,23 @@ public class mainFrame extends javax.swing.JFrame {
                 System.out.println(ex.toString());
             }
         else
-            JOptionPane.showMessageDialog(null,"Debe definir una gramárica antes de guardar.",
+            JOptionPane.showMessageDialog(null,"Debe crear un analizador antes de guardar.",
            "Advertencia",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_SaveTextActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void AnalyzerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalyzerButtonActionPerformed
+        // TODO add your handling code here:
+        if(grammar!=null){
+            new LexAnalyzerFrame(grammar).setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe crear un analizador primero",
+           "Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_AnalyzerButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,6 +304,7 @@ public class mainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AnalyzerButton;
     private java.awt.TextArea GeneradorLex;
     private javax.swing.JButton Open;
     private java.awt.TextField Results;

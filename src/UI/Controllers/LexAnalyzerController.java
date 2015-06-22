@@ -22,7 +22,7 @@ public class LexAnalyzerController {
         for (int i=0; i<lines.length;i++) {
             state = grammar.validateInput(lines[i]);
             if(state!=null){
-                if("$\r".equals(state.getToken()))
+                if(state.getToken().contains("$"))
                     output.add(lines[i]);
                 else
                     output.add(state.getToken());

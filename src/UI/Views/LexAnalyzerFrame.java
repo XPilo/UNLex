@@ -47,7 +47,7 @@ public class LexAnalyzerFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         outputTextArea = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -126,6 +126,7 @@ public class LexAnalyzerFrame extends javax.swing.JFrame {
 
     private void analyzerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analyzerButtonActionPerformed
         // TODO add your handling code here:
+        outputTextArea.setText("");
         if(loadedGrammar!=null){
             output=LexAnalyzerController.analyzeInput(inputTextArea.getText(),loadedGrammar);
             for(String s: output)
