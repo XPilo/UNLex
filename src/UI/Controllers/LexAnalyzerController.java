@@ -25,7 +25,7 @@ public class LexAnalyzerController {
                 state = grammar.validateInput(tokens[j]);
                 if(state!=null){
                     if(state.getToken().contains("$"))
-                        output.add(lines[i]);
+                        output.add(tokens[j]);
                     else
                         output.add(state.getToken() + " : " + tokens[j]);
                 }else

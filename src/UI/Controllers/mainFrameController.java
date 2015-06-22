@@ -52,6 +52,9 @@ public class mainFrameController {
     public static void saveText(String file, String text) {
         FileWriter fichero = null;
         PrintWriter pw = null;
+        if(!(file.endsWith(".txt"))){
+            file+=".txt";
+        }
         try
         {
             fichero = new FileWriter(file);

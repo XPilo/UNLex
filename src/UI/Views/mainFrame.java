@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import types.Grammar;
 
 /**
@@ -24,6 +25,9 @@ public class mainFrame extends javax.swing.JFrame {
      */
     public mainFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("UNLEX");
+        this.setVisible(true);
     }
     Grammar grammar,loadedGrammar;
     /**
@@ -194,6 +198,8 @@ public class mainFrame extends javax.swing.JFrame {
         GeneradorLex.setText("");
         try{
             JFileChooser loadWindow = new JFileChooser();
+            FileNameExtensionFilter filterExtension=new FileNameExtensionFilter("Texto(*.txt)", "txt");
+            loadWindow.setFileFilter(filterExtension);
             loadWindow.showOpenDialog(this);
             File file = loadWindow.getSelectedFile();
             if(file!=null)
@@ -242,6 +248,8 @@ public class mainFrame extends javax.swing.JFrame {
         if(GeneradorLex.getText()!=null)
             try{
                 JFileChooser saveWindow = new JFileChooser();
+                FileNameExtensionFilter filterExtension=new FileNameExtensionFilter("Texto(*.txt)", "txt");
+                saveWindow.setFileFilter(filterExtension);
                 saveWindow.showSaveDialog(this);
                 File file =saveWindow.getSelectedFile();
                 if(file!=null)
@@ -261,7 +269,10 @@ public class mainFrame extends javax.swing.JFrame {
     private void AnalyzerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnalyzerButtonActionPerformed
         // TODO add your handling code here:
         if(grammar!=null){
-            new LexAnalyzerFrame(grammar).setVisible(true);
+            LexAnalyzerFrame lexAnalyzerFrame = new LexAnalyzerFrame(grammar);
+            lexAnalyzerFrame.setLocationRelativeTo(null);
+            lexAnalyzerFrame.setTitle("UNLEX");
+            lexAnalyzerFrame.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(null,"Debe crear un analizador primero",
            "Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -315,4 +326,8 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JButton loadGrammarButton;
     private javax.swing.JButton saveGrammarButon;
     // End of variables declaration//GEN-END:variables
+
+    private File File(String atxt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
