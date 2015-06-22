@@ -1,4 +1,5 @@
 
+import UI.Views.mainFrame;
 import generator.AutomataGenerator;
 import lexGenerator.Token;
 import types.Automata;
@@ -21,44 +22,10 @@ public class UNLex {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        // states definiton
-//        // q0 definition
-//        State q0 = new State();
-//        q0.setType(State.ACCEPT);
-//        q0.setToken("ACEPTED");
-//        // q1 definition
-//        State q1 = new State();
-//        q1.setType(State.REJECT);
-//        
-//        // transition definition
-//        Transition q0a = new Transition(q0, "[a-z]");
-//        Transition q0b = new Transition(q1, "1");
-//        q0.addTransition(q0a);
-//        q0.addTransition(q0b);
-//        
-//        Transition q1a = new Transition(q1, "2");
-//        Transition q1b = new Transition(q0, "[a-z]");
-//        q1.addTransition(q1a);
-//        q1.addTransition(q1b);
-//        
-//        // Automata
-//        Automata automata = new Automata(q0);
-//        State res = automata.processTape("abcerft");
-//        String token;
-//        if(res != null){
-//            token = (res.getToken() != null)? res.getToken() : "";
-//            System.out.println("Token: " + token);
-//        }else System.out.println("Caracter no valido");
-//        AutomataGenerator generator = new AutomataGenerator();
-//        String exp="[a-z]*";
-//        String accept="Realizar acción";
-//        Automata auto = generator.generate(exp, accept);
-//        auto.processTape("casA");
-//        if(auto.getActualState() != null)
-//            System.out.println(auto.getActualState().getToken());
-//        else
-//            System.out.println("Error léxico");
-        
+        mainFrame main = new mainFrame();
+        main.setLocationRelativeTo(null);
+        main.setTitle("UNLEX");
+        main.setVisible(true);
     }
     
 }

@@ -99,6 +99,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpenActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="SaveText">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guardar"/>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="verticalTextPosition" type="int" value="3"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SaveTextActionPerformed"/>
+              </Events>
+            </Component>
             <Component class="javax.swing.JButton" name="RunAnalisis">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Crear Analizador"/>

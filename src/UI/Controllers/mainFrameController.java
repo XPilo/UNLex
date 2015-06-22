@@ -5,16 +5,19 @@
  */
 package UI.Controllers;
 import generator.*;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lexGenerator.LanguageRules;
 import types.Automata;
 import types.Grammar;
 
@@ -25,8 +28,7 @@ import types.Grammar;
 public class mainFrameController {
 
     public static void saveGrammar(File file, Grammar grammar) {
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                    new FileOutputStream(file))) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file))) {
             objectOutputStream.writeObject(grammar);
             objectOutputStream.flush();
             objectOutputStream.close();
@@ -47,10 +49,65 @@ public class mainFrameController {
         }
         return grammar;
     }
+    public static void saveText(String file, String text) {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter(file);
+            pw = new PrintWriter(fichero);
+            pw.println(text);
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    
+    public static String loadText(File file) {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        String text="";
+        try {
+           // Apertura del fichero y creacion de BufferedReader para poder
+           // hacer una lectura comoda (disponer del metodo readLine()).
+           archivo = new File (file.getPath());
+           fr = new FileReader (archivo);
+           br = new BufferedReader(fr);
+
+           // Lectura del fichero
+           String line;
+           while((line=br.readLine())!=null)
+              text += line + "\n";
+        }
+        catch(Exception e){
+           e.printStackTrace();
+        }finally{
+           // En el finally cerramos el fichero, para asegurarnos
+           // que se cierra tanto si todo va bien como si salta 
+           // una excepcion.
+           try{                    
+              if( null != fr ){   
+                 fr.close();     
+              }                  
+           }catch (Exception e2){ 
+              e2.printStackTrace();
+           }
+        }
+        return text;
+    }
 
     private String line;
     private String message;
-    private  static LanguageRules lenguage = new LanguageRules();
     private  String[] words;
     
     public mainFrameController() {
