@@ -20,14 +20,17 @@ public class LexAnalyzerController {
         ArrayList<String> output = new ArrayList<>();
         State state;
         for (int i=0; i<lines.length;i++) {
-            state = grammar.validateInput(lines[i]);
-            if(state!=null){
-                if(state.getToken().contains("$"))
-                    output.add(lines[i]);
-                else
-                    output.add(state.getToken());
-            }else
-                output.add("Linea " + (i+1) + " entrada invalida");
+            String[] tokens = lines[i].split(" ");
+            for(int j = 0;j < tokens.length; ++j) {
+                state = grammar.validateInput(tokens[j]);
+                if(state!=null){
+                    if(state.getToken().contains("$"))
+                        output.add(lines[i]);
+                    else
+                        output.add(state.getToken() + " : " + tokens[j]);
+                }else
+                    output.add("Linea " + (i+1) + " entrada invalida");
+            }
         }
         return output;
     }
